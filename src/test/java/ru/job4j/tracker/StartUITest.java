@@ -14,10 +14,11 @@ public class StartUITest {
     @Test
     public void createItem() {
         String[] answers = {"0", "Fix PC", "1"};
+        Output output = new ConsoleOutput();
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
-        UserAction[] actions = {new CreateAction(), new ExitAction()};
-        new StartUI().init(input, tracker, actions);
+        UserAction[] actions = {new CreateAction(output), new ExitAction()};
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findAll()[0].getName(), is("Fix PC"));
     }
 
@@ -25,20 +26,31 @@ public class StartUITest {
     public void editItem() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Fix PC"));
-        UserAction[] actions = {new ReplaceAction(), new ExitAction()};
+        Output output = new ConsoleOutput();
+        UserAction[] actions = {new ReplaceAction(output), new ExitAction()};
         Input input = new StubInput(new String[]{"0", String.valueOf(item.getId()), "Fix phone", "1"});
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName(), is("Fix phone"));
     }
 
     @Test
     public void deleteItem() {
         Tracker tracker = new Tracker();
+        Output output = new ConsoleOutput();
         Item item = tracker.add(new Item("deliting item"));
-        UserAction[] actions = {new DeleteAction(), new ExitAction()};
+        UserAction[] actions = {new DeleteAction(output), new ExitAction()};
         String[] answers = {"0", String.valueOf(item.getId()), "1"};
         Input input = new StubInput(answers);
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertNull(tracker.findById(item.getId()));
+    }
+
+    @Test
+    public void exit() {
+        Output output = new StubOutput();
+        Input input = new StubInput(new String[]{"0"});
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {new ExitAction()};
+        new StartUI(output).init(input, tracker, actions);
     }
 }

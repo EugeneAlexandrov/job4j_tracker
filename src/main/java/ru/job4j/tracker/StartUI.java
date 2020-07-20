@@ -5,6 +5,12 @@ import ru.job4j.tracker.menuactions.*;
 import java.util.Scanner;
 
 public class StartUI {
+    private final Output out;
+
+    public StartUI(Output out) {
+        this.out = out;
+    }
+
     public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
@@ -16,23 +22,24 @@ public class StartUI {
     }
 
     private void showMenu(UserAction[] actions) {
-        System.out.println("Menu.");
+        out.println("Menu.");
         for (int i = 0; i < actions.length; i++) {
-            System.out.println(i + ":" + actions[i].name());
+            out.println(i + ":" + actions[i].name());
         }
     }
 
     public static void main(String[] args) {
         Input input = new ConsoleInput();
+        Output output = new ConsoleOutput();
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(),
-                new DisplayAllAction(),
-                new ReplaceAction(),
-                new DeleteAction(),
-                new FindByIDAction(),
-                new FindByNameAction(),
+                new CreateAction(output),
+                new DisplayAllAction(output),
+                new ReplaceAction(output),
+                new DeleteAction(output),
+                new FindByIDAction(output),
+                new FindByNameAction(output),
                 new ExitAction()};
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
     }
 }

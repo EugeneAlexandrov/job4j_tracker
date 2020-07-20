@@ -1,11 +1,14 @@
 package ru.job4j.tracker.menuactions;
 
-import ru.job4j.tracker.Input;
-import ru.job4j.tracker.Item;
-import ru.job4j.tracker.Tracker;
-import ru.job4j.tracker.UserAction;
+import ru.job4j.tracker.*;
 
 public class DisplayAllAction implements UserAction {
+    private final Output out;
+
+    public DisplayAllAction(Output out) {
+        this.out = out;
+    }
+
     @Override
     public String name() {
         return "List of Items";
@@ -13,11 +16,11 @@ public class DisplayAllAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        System.out.println("=== List of Items ===");
+        out.println("=== List of Items ===");
         for (Item item : tracker.findAll()) {
-            System.out.println(item);
+            out.println(item);
         }
-        System.out.println("======================");
+        out.println("======================");
         return true;
     }
 }
