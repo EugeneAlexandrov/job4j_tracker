@@ -20,16 +20,22 @@ public class StartUITest {
 
     @Test
     public void editItem() {
-        String[] answers = {"Fix PC", "1", "Fix phone"};
-        Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
-        StartUI.createItem(input, tracker);
-        Item created = tracker.findAll()[0];
-        Item expected = new Item("Fix PC");
-        assertThat(created.getName(), is(expected.getName()));
-        StartUI.editItem(input, tracker);
-        created = tracker.findAll()[0];
-        expected = new Item("Fix phone");
-        assertThat(created.getName(), is(expected.getName()));
+        Item item = new Item("Fix PC");
+        tracker.add(item);
+        String[] answers = {String.valueOf(item.getId()), "Fix phone"};
+        StartUI.editItem(new StubInput(answers), tracker);
+        Item replaced = tracker.findById(item.getId());
+        assertThat(replaced.getName(), is("Fix phone"));
+    }
+
+    @Test
+    public void deleteItem() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("deliting item");
+        tracker.add(item);
+        String[] answers = {String.valueOf(item.getId())};
+        StartUI.deleteItem(new StubInput(answers), tracker);
+        assertNull(tracker.findById(item.getId()));
     }
 }
