@@ -20,7 +20,7 @@ public class FindByNameAction implements UserAction {
         String name = input.askStr("Enter name of item: ");
         Item[] array = tracker.findByName(name);
         if (array.length > 0) {
-            for (Item item : array) System.out.println(item);
+            for (Item item : array) out.println(item);
         } else out.println("item с таким именем не найден");
         out.println("======================");
         return true;
