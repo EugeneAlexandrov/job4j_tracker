@@ -22,7 +22,9 @@ public class ReplaceAction implements UserAction {
         Item item = new Item(id, name);
         if (tracker.replace(id, item)) {
             out.println("id " + id + " успешно изменен%n");
-        } else out.println("item c таким id не найден");
+        } else {
+            out.println("item c таким id не найден");
+        }
         out.println("======================");
         return true;
     }
