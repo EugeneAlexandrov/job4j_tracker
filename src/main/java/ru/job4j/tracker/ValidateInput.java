@@ -2,6 +2,11 @@ package ru.job4j.tracker;
 
 public class ValidateInput extends ConsoleInput {
     @Override
+    public String askStr(String question) {
+        return super.askStr(question);
+    }
+
+    @Override
     public int askInt(String question) {
         boolean invalid = true;
         int value = -1;
@@ -10,7 +15,7 @@ public class ValidateInput extends ConsoleInput {
                 value = super.askInt(question);
                 invalid = false;
             } catch (NumberFormatException nfe) {
-                System.out.println("invalid data. Use number format");
+                System.out.println("Please enter validate data again.");
             }
         } while (invalid);
         return value;
