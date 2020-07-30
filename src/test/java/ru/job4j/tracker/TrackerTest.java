@@ -2,7 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 import ru.job4j.tracker.comparators.IDComparator;
-import ru.job4j.tracker.comparators.NameComparator;
+import ru.job4j.tracker.comparators.NameAscComparator;
+import ru.job4j.tracker.comparators.NameDescComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +55,7 @@ public class TrackerTest {
         Item task2 = new Item(1, "A");
         items.add(task1);
         items.add(task2);
-        Collections.sort(items, new NameComparator());
+        Collections.sort(items, new NameAscComparator());
         List<Item> expected = new ArrayList<>();
         expected.add(task2);
         expected.add(task1);
@@ -68,39 +69,10 @@ public class TrackerTest {
         Item task2 = new Item(1, "Aab");
         items.add(task1);
         items.add(task2);
-        items.sort(new NameComparator().reversed());
+        items.sort(new NameDescComparator());
         List<Item> expected = new ArrayList<>();
         expected.add(task2);
         expected.add(task1);
         assertThat(items.get(0).getName(), is(expected.get(0).getName()));
     }
-
-    @Test
-    public void sortItemsByIDAsc() {
-        List<Item> items = new ArrayList<>();
-        Item task1 = new Item(1, "Bbc");
-        Item task2 = new Item(0, "Abc");
-        items.add(task1);
-        items.add(task2);
-        Collections.sort(items, new IDComparator());
-        List<Item> expected = new ArrayList<>();
-        expected.add(task2);
-        expected.add(task1);
-        assertThat(items.get(0).getName(), is(expected.get(0).getName()));
-    }
-
-    @Test
-    public void sortItemsByIDDesc() {
-        List<Item> items = new ArrayList<>();
-        Item task1 = new Item(0, "Aaa");
-        Item task2 = new Item(1, "Aab");
-        items.add(task1);
-        items.add(task2);
-        items.sort(new IDComparator().reversed());
-        List<Item> expected = new ArrayList<>();
-        expected.add(task2);
-        expected.add(task1);
-        assertThat(items.get(0).getName(), is(expected.get(0).getName()));
-    }
-
 }
