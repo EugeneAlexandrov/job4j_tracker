@@ -59,7 +59,7 @@ public class TrackerTest {
         List<Item> expected = new ArrayList<>();
         expected.add(task2);
         expected.add(task1);
-        assertThat(items.get(0).getName(), is(expected.get(0).getName()));
+        assertThat(items, is(expected));
     }
 
     @Test
@@ -73,6 +73,6 @@ public class TrackerTest {
         List<Item> expected = new ArrayList<>();
         expected.add(task2);
         expected.add(task1);
-        assertThat(items.get(0).getName(), is(expected.get(0).getName()));
+        assertThat(items, is(expected));
     }
 }
