@@ -13,7 +13,7 @@ after_success:
 
 env:
   global:
-    - CODECOV_TOKEN="75a3c18b-fec3-4c97-8090-34931a4d00a5"
+    - CODECOV_TOKEN="a0cff11a-7a6a-4102-bf94-6bdf3893c8ba"
 
 
 # Отправлять уведомление на почту mybclym@gmail.com если сборка упала
